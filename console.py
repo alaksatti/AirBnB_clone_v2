@@ -49,18 +49,16 @@ class HBNBCommand(cmd.Cmd):
             new_list = args.split(" ")
 
             if len(new_list) > 0:
-                parameters = my_list[1:]
+                parameters = new_list[1:]
                 key_value_args = {}
                 for parameter in parameters:
                     dic_obj = parameter.split("=")
                     if len(dic_obj) == 2:
                         if type(dic_obj[1]) in [str, int, float]:
                             dic_obj[1] = dic_obj[1].replace('"', '')
-                            if isinstance(dic_obj[1], str):
 
-                            else:
-                                dic_obj[1] = str(dic_obj[1])
-                            key_value_args[dic_obj[0]] = dic_obj[1]
+                        dic_obj[1] = str(dic_obj[1])
+                        key_value_args[dic_obj[0]] = dic_obj[1]
             obj = eval("{}(**key_value_args)".format(new_list[0]))
             obj.save()
             print("{}".format(obj.id))
