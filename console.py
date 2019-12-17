@@ -40,6 +40,7 @@ class HBNBCommand(cmd.Cmd):
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
         """
+
         new_list = []
         
         try:
@@ -55,12 +56,11 @@ class HBNBCommand(cmd.Cmd):
                     if len(dic_obj) == 2:
                         if type(dic_obj[1]) in [str, int, float]:
                             dic_obj[1] = dic_obj[1].replace('"', '')
-                              if isinstance(dic_obj[1], str):
-                                if dic_obj[0] != 'email':
-                                    dic_obj[1] = dic_obj[1].replace("_", " ")
+                            if isinstance(dic_obj[1], str):
+
                             else:
                                 dic_obj[1] = str(dic_obj[1])
-                                key_value_args[dic_obj[0]] = dic_obj[1]
+                            key_value_args[dic_obj[0]] = dic_obj[1]
             obj = eval("{}(**key_value_args)".format(new_list[0]))
             obj.save()
             print("{}".format(obj.id))
@@ -68,6 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
+
 
     def do_show(self, line):
         """Prints the string representation of an instance
