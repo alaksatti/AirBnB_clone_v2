@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
                 for parameter in parameters:
                     dic_obj = parameter.split("=")
                     if len(dic_obj) == 2:
-                        if type(dic_obj[1]) is in [str, int, float]:
+                        if type(dic_obj[1]) in [str, int, float]:
                             dic_obj[1] = dic_obj[1].replace('"', '')
                               if isinstance(dic_obj[1], str):
                                 if dic_obj[0] != 'email':
