@@ -1,7 +1,5 @@
 #!/usr/bin/python3                                                                                                
 """SQL DB Class"""
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
 from models.place import Place
 from models.user import User
@@ -9,6 +7,8 @@ from models.city import City
 from models.state import State
 from models.amenity import Amenity
 from models.review import Review
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
 
@@ -27,11 +27,11 @@ class DBStorage:
         host = getenv('HBNB_MYSQL_HOST')
         pswd = getenv('HBNB_MYSQL_PWD')
 
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(db,
-                                             usr,
-                                             host,
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
+                                      format(usr,
                                              pswd,
+                                             host,
+                                             db,
                                              pool_pre_ping=True))
         if getenv('HBNB_MYSQL_ENV') == 'test':
             Base.metadata.drop_all(bind=self.__engine)
