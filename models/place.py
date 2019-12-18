@@ -94,7 +94,7 @@ class Place(BaseModel, Base):
             ''' returns list of amenity instances based on attr amenity_ids '''
             list_amenity = []
             amenities = models.storage.all(Amenity)
-            for amenity in amenities.values():
+            for amenity in amenities:
                 if amenity.id in self.amenity_ids:
                     list_amenity.append(amenity)
             return list_amenity
