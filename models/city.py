@@ -11,7 +11,7 @@ class City(BaseModel, Base):
         name: input name
     """
 
-    __tablename__ = 'cities'
+    __tablename__ = "cities"
 
     name = Column(String(128),
                   nullable=False)

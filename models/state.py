@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """This is the state class"""
-import models
 from models.base_model import BaseModel, Base
+from models.city import City
+import models
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
@@ -11,17 +12,20 @@ class State(BaseModel, Base):
     Attributes:
         name: input name
     """
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = 'states'
-        name = Column(String(128),
+
+    __tablename__ = "states"
+
+    name = Column(String(128),
                       nullable=False)
+
+
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship("City",
                               cascade="all")
 
 
     
     else:
-        name = ""
         @property
         def cities(self):
             ''' returns the list of cities'''

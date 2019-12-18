@@ -1,12 +1,12 @@
 #!/usr/bin/python3                                                                                                
 """SQL DB Class"""
 from models.base_model import BaseModel, Base
-from models.place import Place
 from models.user import User
-from models.city import City
-from models.state import State
-from models.amenity import Amenity
 from models.review import Review
+from models.amenity import Amenity
+from models.state import State
+from models.place import Place
+from models.city import City
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
@@ -39,14 +39,15 @@ class DBStorage:
 
     def all(self, cls=None):
         """query current database session"""
+
         queried_dict = {}
         if cls:
             queried_results = self.__session.query(cls).all()
         else:
             queried_results = []
-            classes = ['State', 'User', 'Place', 'City', 'Review', 'Amenity']
+            classes = ["City", "State", "Place", "User", "Amenity", "Review"]
             for _class in classes:
-                objs = self.__session.query(eval(_class))
+                objs = self.__session.query(_class)
                 for obj in objs:
                     queried_results.append(obj)
                     
@@ -56,14 +57,15 @@ class DBStorage:
             
         return queried_dict
 
+
     def new(self, obj):
         """ adds object to current database session"""
-        return self.__session.add(obj)
+        self.__session.add(obj)
 
 
     def save(self):
         """ commit changes to current database session"""
-        return self.__session.commit()
+        self.__session.commit()
 
 
     def delete(self, obj=None):
