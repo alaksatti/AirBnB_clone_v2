@@ -3,28 +3,27 @@
 import uuid
 import models
 from datetime import datetime
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 from os import getenv
 
 
 Base = declarative_base()
+
+
 class BaseModel:
     """This class will defines all common attributes/methods
     for other classes
     """
     id = Column(String(60),
-                primary_key=True,
-                nullable=False)
-
+                nullable=False,
+                primary_key=True)
     created_at = Column(DateTime,
                         nullable=False,
                         default=datetime.utcnow())
     updated_at = Column(DateTime,
                         nullable=False,
                         default=datetime.utcnow())
-
-
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
@@ -36,16 +35,17 @@ class BaseModel:
             created_at: creation date
             updated_at: updated date
         """
-
+        storage_system = getenv('HBNB_TYPE_STORAGE')
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
+                    if storage_system == 'db':
+                        value = value.strip('"')
                     setattr(self, key, value)
-            if 'id' not in kwargs.keys():
-                self.id = str(uuid.uuid4())
-                self.created_at = self.updated_at = datetime.now()
+            if self.id is None:
+                setattr(self, 'id', str(uuid.uuid4()))
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
@@ -55,8 +55,10 @@ class BaseModel:
         Return:
             returns a string of class name, id, and dictionary
         """
+        body = self.__dict__.copy()
+        del body['_sa_instance_state']
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__)
+            type(self).__name__, self.id, body)
 
     def __repr__(self):
         """return a string representaion
@@ -75,7 +77,6 @@ class BaseModel:
         Return:
             returns a dictionary of all the key values in __dict__
         """
-
         my_dict = dict(self.__dict__)
         if "_sa_instance_state" in my_dict.keys():
             del my_dict["_sa_instance_state"]
@@ -85,5 +86,6 @@ class BaseModel:
         return my_dict
 
     def delete(self):
-        """Deletes the current instance from storage """
+        """Deletes the current instance from storage
+        """
         models.storage.delete(self)
