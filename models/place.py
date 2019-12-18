@@ -10,14 +10,15 @@ from os import getenv
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id',
                              String(60),
-                             ForeignKey('places.id'),
                              primary_key=True,
+                             ForeignKey('places.id'),
                              nullable=False),
                       Column('amenity_id',
                              String(60),
-                             ForeignKey('amenities.id'),
                              primary_key=True,
+                             ForeignKey('amenities.id'),
                              nullable=False))
+
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -49,6 +50,7 @@ class Place(BaseModel, Base):
     city_id = Column(String(60),
                      ForeignKey('cities.id'),
                      nullable=False)
+
     number_rooms = Column(Integer,
                           nullable=False,
                           default=0)
@@ -64,6 +66,7 @@ class Place(BaseModel, Base):
                        default=0)
     latitude = Column(Float,
                       nullable=True)
+
     longitude = Column(Float,
                        nullable=True)
 
@@ -73,13 +76,12 @@ class Place(BaseModel, Base):
                                cascade="all")
 
         amenities = relationship("Amenity",
-                                  secondary=place_amenity,
-                                  viewonly=False)
-
+                                 secondary=place_amenity,
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
-            ''' returns list of review instances with place_id = to curren place.id '''
+            ''' returns list of review instances w/ place_id=curr place.id'''
             reviews = models.storage.all(Review)
             list_reviews = []
             for review in reviews:
@@ -87,10 +89,9 @@ class Place(BaseModel, Base):
                     list_reviews.append(review)
             return list_reviews
 
-
         @property
         def amenities(self):
-            ''' returns list of amenity instances based on the attribute amenity_ids '''
+            ''' returns list of amenity instances based on attr amenity_ids '''
             list_amenity = []
             amenities = models.storage.all(Amenity)
             for amenity in amenities.values():
@@ -100,6 +101,6 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj):
-            ''' handles append method for adding an amenity.id to the attriute amenidty_ids'''
+            '''handles append for add an amenity.id to the attr amenity_ids'''
             if obj and isinstance(obj, Amenity):
                 type(self).amenity_ids.append(obj.id)
