@@ -1,18 +1,12 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-"""
 from models.city import City
-
 from models.user import User
-"""
 from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
-"""
 from os import getenv
-"""
 
-"""
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id',
                              String(60),
@@ -24,8 +18,6 @@ place_amenity = Table('place_amenity', Base.metadata,
                              ForeignKey('amenities.id'),
                              primary_key=True,
                              nullable=False))
-"""
-
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -74,33 +66,24 @@ class Place(BaseModel, Base):
 
     amenity_ids = []
 
-    reviews = relationship('Review',
-                           backref='place',
-                           cascade='all, delete-orphan')
-    """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship("Review",
                                backref="place",
-                               cascade="all, delete-orphan")"
+                               cascade="all")
 
         amenities = relationship("Amenity",
                                  secondary=place_amenity,
                                  viewonly=False)
-    else:
-    """
-
-    
-    @property
-    def reviews(self):
-        ''' returns list of review instances w/ place_id=curr place.id'''
-        reviews = models.storage.all(Review)
-        list_reviews = []
-        for review in reviews.values:
-            if review.place_id == self.id:
-                list_reviews.append(review)
-        return list_reviews
-
-        """
+    else:    
+        @property
+        def reviews(self):
+            ''' returns list of review instances w/ place_id=curr place.id'''
+            reviews = models.storage.all(Review)
+            list_reviews = []
+            for review in reviews.values:
+                if review.place_id == self.id:
+                    list_reviews.append(review)
+            return list_reviews
 
         @property
         def amenities(self):
@@ -117,4 +100,3 @@ class Place(BaseModel, Base):
             '''handles append for add an amenity.id to the attr amenity_ids'''
             if obj and isinstance(obj, Amenity):
                 type(self).amenity_ids.append(obj.id)
-        """
