@@ -10,13 +10,12 @@ from os import getenv
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id',
                              String(60),
-                             primary_key=True,
                              ForeignKey('places.id'),
                              nullable=False),
                       Column('amenity_id',
                              String(60),
-                             primary_key=True,
                              ForeignKey('amenities.id'),
+                             primary_key=True,
                              nullable=False))
 
 
