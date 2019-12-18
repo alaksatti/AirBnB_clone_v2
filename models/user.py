@@ -13,7 +13,7 @@ class User(BaseModel, Base):
         first_name: first name
         last_name: last name
     """
-    __tablename__ = "users"
+    __tablename__ = 'users'
 
     email = Column(String(128),
                    nullable=False)
@@ -23,12 +23,12 @@ class User(BaseModel, Base):
                         nullable=True)
     last_name = Column(String(128),
                        nullable=True)
-"""
 
     places = relationship("Place",
-                          backref="all",
-                          cascade="delete")
+                          backref="user",
+                          cascade="all")
+
     reviews = relationship("Review",
                            backref="user",
                            cascade="all")
-"""
+
