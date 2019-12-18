@@ -6,7 +6,6 @@ from sqlalchemy.orm import relationship
 from models.place import Place, place_amenity
 
 
-
 class Amenity(BaseModel, Base):
     """This is the class for Amenity
     Attributes:
@@ -19,4 +18,3 @@ class Amenity(BaseModel, Base):
 
     place_amenities = relationship("Place",
                                    secondary=place_amenity)
-
