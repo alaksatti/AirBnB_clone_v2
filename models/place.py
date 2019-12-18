@@ -7,6 +7,17 @@ from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
 
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id',
+                             String(60),
+                             ForeignKey('places.id'),
+                             primary_key=True,
+                             nullable=False),
+                      Column('amenity_id',
+                             String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True,
+                             nullable=False))
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -60,13 +71,35 @@ class Place(BaseModel, Base):
         reviews = relationship("Review",
                                backref="place",
                                cascade="all")
+
+        amenities = relationship("Amenity",
+                                  secondary=place_amenity,
+                                  viewonly=False)
+
     else:
         @property
         def reviews(self):
-            ''' Returns list of review instances '''
+            ''' returns list of review instances with place_id = to curren place.id '''
             reviews = models.storage.all(Review)
             list_reviews = []
             for review in reviews:
                 if review.place_id == self.id:
                     list_reviews.append(review)
             return list_reviews
+
+
+        @property
+        def amenities(self):
+            ''' returns list of amenity instances based on the attribute amenity_ids '''
+            list_amenity = []
+            amenities = models.storage.all(Amenity)
+            for amenity in amenities.values():
+                if amenity.id in self.amenity_ids:
+                    list_amenity.append(amenity)
+            return list_amenity
+
+        @amenities.setter
+        def amenities(self, obj):
+            ''' handles append method for adding an amenity.id to the attriute amenidty_ids'''
+            if obj and isinstance(obj, Amenity):
+                type(self).amenity_ids.append(obj.id)
