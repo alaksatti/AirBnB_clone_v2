@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
+
 class User(BaseModel, Base):
     """This is the class for user
     Attributes:
@@ -28,7 +29,6 @@ class User(BaseModel, Base):
                           backref="all",
                           cascade="delete")
     reviews = relationship("Review",
-                           backref="user", 
+                           backref="user",
                            cascade="all")
-
 """
