@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
+"""
 from models.city import City
+
 from models.user import User
+"""
 from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
+"""
 from os import getenv
+"""
 
 """
 place_amenity = Table('place_amenity', Base.metadata,
@@ -69,9 +74,9 @@ class Place(BaseModel, Base):
 
     amenity_ids = []
 
-    reviews = relationship("Review",
-                           backref="place",
-                           cascade="all, delete-orphan")
+    reviews = relationship('Review',
+                           backref='place',
+                           cascade='all, delete-orphan')
     """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship("Review",
@@ -90,7 +95,7 @@ class Place(BaseModel, Base):
         ''' returns list of review instances w/ place_id=curr place.id'''
         reviews = models.storage.all(Review)
         list_reviews = []
-        for review in reviews:
+        for review in reviews.values:
             if review.place_id == self.id:
                 list_reviews.append(review)
         return list_reviews
