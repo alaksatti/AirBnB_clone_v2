@@ -61,6 +61,12 @@ class TestCity(unittest.TestCase):
         self.city.save()
         self.assertNotEqual(self.city.created_at, self.city.updated_at)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', 'db')
+    def test_save_BaesModel(self):
+        """test if the save works"""
+        self.base.save()
+        self.assertNotEqual(self.base.created_at, self.base.updated_at)
+
     def test_to_dict_City(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.city), True)

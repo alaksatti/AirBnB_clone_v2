@@ -15,24 +15,23 @@ from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+    """test the filesStorage"""
 
     @classmethod
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
-        cls.user.first_name = "Kev"
-        cls.user.last_name = "Yo"
-        cls.user.email = "1234@yahoo.com"
+        cls.user.first_name = "Akeem"
+        cls.user.last_name = "Seymens"
+        cls.user.email = "akeem.seymens@hbnb.com"
         cls.storage = FileStorage()
 
     @classmethod
     def teardown(cls):
-        """at the end of the test this will tear it down"""
+        """test this will tear it down at end of test."""
         del cls.user
 
-    def tearDown(self):
-        """teardown"""
+    def teardown(self):
         try:
             os.remove("file.json")
         except Exception:
@@ -45,7 +44,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_all(self):
-        """tests if all works in File Storage"""
+        """tests if all in File Storage"""
         storage = FileStorage()
         obj = storage.all()
         self.assertIsNotNone(obj)
@@ -57,8 +56,8 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         obj = storage.all()
         user = User()
-        user.id = 123455
-        user.name = "Kevin"
+        user.id = 1313
+        user.name = "akeem"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
@@ -74,7 +73,7 @@ class TestFileStorage(unittest.TestCase):
             lines = f.readlines()
         try:
             os.remove(path)
-        except:
+        except Exception:
             pass
         self.storage.save()
         with open(path, 'r') as f:
@@ -82,7 +81,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(lines, lines2)
         try:
             os.remove(path)
-        except:
+        except Exception:
             pass
         with open(path, "w") as f:
             f.write("{}")
@@ -91,6 +90,17 @@ class TestFileStorage(unittest.TestCase):
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
 
+    def test_delete(self):
+        """Test delete method"""
+        pass
+
+    def test_delete_with_args(self):
+        """Test delete method with arguments"""
+        pass
+
+    def test_all_with_args(self):
+        """Test all method with optional arguments"""
+        pass
 
 if __name__ == "__main__":
     unittest.main()

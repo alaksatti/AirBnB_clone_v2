@@ -8,6 +8,8 @@ import os
 import json
 import console
 import tests
+import re
+import MySQLdb
 from console import HBNBCommand
 from models.base_model import BaseModel
 from models.user import User
@@ -17,7 +19,8 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
-
+from models import storage
+f
 
 class TestConsole(unittest.TestCase):
     """this will test the console"""
