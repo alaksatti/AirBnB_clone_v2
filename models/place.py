@@ -66,11 +66,11 @@ class Place(BaseModel, Base):
 
     amenity_ids = []
 
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        reviews = relationship("Review",
+    reviews = relationship("Review",
                                backref="place",
                                cascade="all")
 
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         amenities = relationship("Amenity",
                                  secondary=place_amenity,
                                  viewonly=False)
