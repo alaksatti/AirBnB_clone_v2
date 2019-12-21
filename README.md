@@ -54,3 +54,6 @@ Ex:
 `City.show(my_city_id)`
 
 
+#### Authors
+Aalaa Satti: aalaa.satti@holbertonschool.com
+Akeem Seymens: akeem.seymens@holbertonschool.com
