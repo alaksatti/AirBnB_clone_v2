@@ -71,6 +71,10 @@ class Place(BaseModel, Base):
                                cascade="all")
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
+        reviews = relationship("Review",
+                               backref="place",
+                               cascade="all")
+
         amenities = relationship("Amenity",
                                  secondary=place_amenity,
                                  viewonly=False)
