@@ -74,5 +74,19 @@ class TestReview(unittest.TestCase):
         self.rev.save()
         self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', 'file')
+    def test_delete_review_file(self):
+        """test if delete works"""
+        self.rev = Review()
+        self.rev.name = 'Aalaa'
+        del self.rev
+
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'file', 'db')
+    def test_delete_review_db(self):
+        """test if delete works"""
+        self.rev = Review()
+        self.rev.name = 'Aalaa'
+        del self.rev
+
 if __name__ == "__main__":
     unittest.main()
