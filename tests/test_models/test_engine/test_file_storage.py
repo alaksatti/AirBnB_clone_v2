@@ -56,8 +56,8 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         obj = storage.all()
         user = User()
-        user.id = 1313
-        user.name = "akeem"
+        user.id = 123458
+        user.name = "Akeem"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
