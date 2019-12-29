@@ -15,23 +15,24 @@ from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
-    """test the filesStorage"""
+    '''this will test the FileStorage'''
 
     @classmethod
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
-        cls.user.first_name = "Akeem"
-        cls.user.last_name = "Seymens"
-        cls.user.email = "akeem.seymens@hbnb.com"
+        cls.user.first_name = "Kev"
+        cls.user.last_name = "Yo"
+        cls.user.email = "1234@yahoo.com"
         cls.storage = FileStorage()
 
     @classmethod
     def teardown(cls):
-        """test this will tear it down at end of test."""
+        """at the end of the test this will tear it down"""
         del cls.user
 
-    def teardown(self):
+    def tearDown(self):
+        """teardown"""
         try:
             os.remove("file.json")
         except Exception:
@@ -44,7 +45,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_all(self):
-        """tests if all in File Storage"""
+        """tests if all works in File Storage"""
         storage = FileStorage()
         obj = storage.all()
         self.assertIsNotNone(obj)
@@ -56,16 +57,14 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         obj = storage.all()
         user = User()
-        user.id = 123458
-        user.name = "Akeem"
+        user.id = 123455
+        user.name = "Kevin"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
 
     def test_reload_filestorage(self):
-        """
-        tests reload
-        """
+        """tests reload"""
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
         path = os.path.join(Root, "file.json")
@@ -89,18 +88,6 @@ class TestFileStorage(unittest.TestCase):
             for line in r:
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
-
-    def test_delete(self):
-        """Test delete method"""
-        pass
-
-    def test_delete_with_args(self):
-        """Test delete method with arguments"""
-        pass
-
-    def test_all_with_args(self):
-        """Test all method with optional arguments"""
-        pass
 
 
 if __name__ == "__main__":
