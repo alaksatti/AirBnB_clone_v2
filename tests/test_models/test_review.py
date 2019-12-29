@@ -88,5 +88,6 @@ class TestReview(unittest.TestCase):
         self.rev.name = 'Aalaa'
         del self.rev
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -17,5 +17,6 @@ class TestDBStorage(unittest.TestCase):
         p = style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
+
 if __name__ == "__main__":
     unittest.main()

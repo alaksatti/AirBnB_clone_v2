@@ -102,5 +102,6 @@ class TestFileStorage(unittest.TestCase):
         """Test all method with optional arguments"""
         pass
 
+
 if __name__ == "__main__":
     unittest.main()

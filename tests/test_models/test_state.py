@@ -77,5 +77,6 @@ class TestState(unittest.TestCase):
         self.state.name = 'California'
         del self.state
 
+
 if __name__ == "__main__":
     unittest.main()

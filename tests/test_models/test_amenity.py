@@ -77,5 +77,6 @@ class TestAmenity(unittest.TestCase):
         self.amenity.name = 'Pool'
         del self.amenity
 
+
 if __name__ == "__main__":
     unittest.main()
