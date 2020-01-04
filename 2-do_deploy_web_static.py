@@ -3,10 +3,12 @@
 from fabric.api import local, env, put, run
 from datetime import datetime
 from os.path import exists, isfile
+from os import path
 
 
 env.hosts = ['35.196.198.246', '34.73.64.187']
 env.user = 'ubuntu'
+env.key_filename = '~/.ssh/holberton'
 
 def do_pack():
     """creates a .tgz archive from web_static contents"""
@@ -20,7 +22,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """deploy archive to web servers"""
+    'deploy archive to web servers'
     if not exists(archive_path) and not isfile(archive_path):
         return False
     name = archive_path.split('/')[1][:-4]
@@ -33,11 +35,12 @@ def do_deploy(archive_path):
         run('rm /tmp/' + name + '.tgz')
         run('mv /data/web_static/releases/' + name + '/web_static/* ' +
             '/data/web_static/releases/' + name + '/')
-        run('rm -rf /data/web_static/releases/' + filename + '/web_static')
+        run('rm -rf /data/web_static/releases/' + name + '/web_static')
         run('rm -rf /data/web_static/current')
-        run('ln -sf /data/web_static/releases/' + filename + '/ ' +
+        run('ln -sf /data/web_static/releases/' + name + '/ ' +
             '/data/web_static/current')
     except:
         return False
     
     return True
+
