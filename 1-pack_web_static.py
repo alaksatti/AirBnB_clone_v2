@@ -4,6 +4,7 @@ from fabric.api import local
 from datetime import datetime
 from os.path import exists
 
+
 def do_pack():
     """creates a .tgz archive from web_static contents"""
     time = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -13,5 +14,3 @@ def do_pack():
     if exists(path):
         return path
     return None
-    
-    
