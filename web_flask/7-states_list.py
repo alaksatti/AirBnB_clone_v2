@@ -9,6 +9,7 @@ app.url_map.strict_slashes = False
 @app.route('/states_list')
 def display_states():
     '''list all the states'''
+    stroage.reload()
     dict_states = storage.all("State")
     states = []
     for value in dict_states.values():
