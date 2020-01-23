@@ -12,7 +12,7 @@ app.url_map.strict_slashes = False
 @app.route('/states/<id>')
 def states_list(id=None):
     if id is None:
-        id='0'
+        id = '0'
     return render_template('9-states.html',
                            states=storage.all(State).values(), id=id)
 
