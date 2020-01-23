@@ -17,7 +17,7 @@
       <section class="filters">
 	<div class="locations">
 	  <h3>States</h3>
-	  &nbsp;
+	  <h4>&nbsp;</h4>
 	  <div class="popover">
 	    <ul>
 	      {% for state in states|sort(attribute='name') %}
@@ -25,7 +25,7 @@
 		<h2>{{state.name}}</h2>
 		<ul>
 		{% for city in state.cities|sort(attribute='name') %}
-		<li>{{ city.name }}</li>
+		<li>{{city.name}}</li>
 		{% endfor %}
 		</ul>
 	      </li>
@@ -35,7 +35,7 @@
 	</div>
 	<div class="amenities">
 	  <h3>Amenities</h3>
-	  &nbsp;
+	  <h4>&nbsp;</h4>
 	  <div class="popover">
 	    <ul>
 	      {% for amenity in amenities|sort(attribute='name') %}
@@ -55,17 +55,15 @@
 		  <div class="price_by_night">${{place.price_by_night}}</div>
 	  </div>
 	  <div class="information">
-		  <div class="max_guest">{{place.max_guest}} Guests</div>
-		  <div class="number_rooms">{{place.number_rooms}} Bedrooms</div>
-		  <div class="number_bathrooms">{{place.number_bathrooms}} Bathrooms</div>
+		  <div class="max_guest">{{place.max_guest}} Guest</div>
+		  <div class="number_rooms">{{place.number_rooms}} Room</div>
+		  <div class="number_bathrooms">{{place.number_bathrooms}} Bathroom</div>
 	  </div>
 	  <div class="user">
 		  <b>Owner:</b> {{place.user.first_name}} {{place.user.last_name}}
           </div>
           <div class="description">
-		  <p>
-		  {{place.description}}
-		  </p>
+		  <p>{{place.description}}</p>
           </div>
 	</article>
 	{% endfor %}
