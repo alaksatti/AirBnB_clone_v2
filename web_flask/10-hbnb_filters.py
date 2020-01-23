@@ -7,11 +7,12 @@ from models.amenity import Amenity
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
+
 @app.route('/hbnb_filters', strict_slashes=False)
 def filters(id=None):
     '''renders html content'''
     if id is None:
-        id='0'
+        id = '0'
     return render_template('10-hbnb_filters.html',
                            states=storage.all(State).values(),
                            amenities=storage.all(Amenity).values(),
