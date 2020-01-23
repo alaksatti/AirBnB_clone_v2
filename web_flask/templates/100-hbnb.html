@@ -63,7 +63,7 @@
 		  <b>Owner:</b> {{place.user.first_name}} {{place.user.last_name}}
           </div>
           <div class="description">
-		  <p>{{place.description}}</p>
+		  <p>{{place.description | safe}}</p>
           </div>
 	</article>
 	{% endfor %}
