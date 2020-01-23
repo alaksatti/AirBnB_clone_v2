@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+c#!/usr/bin/python3
 '''Flask web application '''
 from flask import Flask, render_template
 from models import storage
@@ -12,7 +12,7 @@ app.url_map.strict_slashes = False
 @app.route('/hbnb', strict_slashes=False)
 def filters():
     '''renders html content'''
-    return render_template('100-hbnb_filters.html',
+    return render_template('100-hbnb.html',
                            states=storage.all(State).values(),
                            amenities=storage.all(Amenity).values(),
                            places=storage.all(Place).values())
