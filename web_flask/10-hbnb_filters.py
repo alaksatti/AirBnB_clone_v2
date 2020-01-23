@@ -1,28 +1,24 @@
 #!/usr/bin/python3
-'''starts a Flask web application '''
+'''Flask web application '''
 from flask import Flask, render_template
 from models import storage
+from models.state import State
+from models.amenity import Amenity
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 @app.route('/hbnb_filters')
-def filters():
-    states = [[v.id, v.name] for v in storage.all("State").values()]
-    cities = {}
-    for v in storage.all("City").values():
-        if v.state_id in cities.keys():
-            cities[v.state_id].append(v.name)
-        else:
-            cities[v.state_id] = [v.name]
-    amenities = [v.name for v in storage.all("Amenity").values()]
+def filters(id='0'):
+    '''renders html content'''
     return render_template('10-hbnb_filters.html',
-                           states=states,
-                           cities=cities,
-                           amenities=amenities)
+                           states=storage.all(State).values(),
+                           amenities=storage.all(Amenity).values(),
+                           id=id)
 
 
 @app.teardown_appcontext
 def teardown(exception):
+    '''teardown db'''
     storage.close()
 
 
